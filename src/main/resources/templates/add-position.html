@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form role="form" method="post" th:action="@{/add}" th:object="${position}">
+    <div class="form-group">
+        <label for="name">Название</label>
+        <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" th:field="*{name}">
+    </div>
+    <div class="form-group">
+        <label for="description">Password</label>
+        <input type="description" class="form-control" id="description" placeholder="description" name="description" th:field="*{description}">
+    </div>
+
+    <div class="form-group">
+        <label for="photoUrl">photoUrl</label>
+        <input type="photoUrl" class="form-control" id="photoUrl" placeholder="photoUrl" name="photoUrl" th:field="*{photoUrl}">
+    </div>
+
+    <div class="form-group">
+        <label for="price">price</label>
+        <input type="price" class="form-control" id="price" placeholder="price"name="price"th:field="*{price}">
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</body>
+</html>
