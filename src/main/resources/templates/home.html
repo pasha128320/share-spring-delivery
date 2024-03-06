@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <header th:insert="fragments/header"/>
+    <header th:insert="~{fragments/header}"/>
 
     <div th:if="${param.success}" class="alert alert-success">
         Вы успешно зарегистрировались!
@@ -25,7 +25,7 @@
 
 
                 <div th:each="elem : ${positions}">
-                <div class="card" style="width: 18rem; padding: 5px;">
+                <div class="card m-3">
                     <img class="card-img-top" th:src="${elem.photoUrl}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${elem.name}"/>

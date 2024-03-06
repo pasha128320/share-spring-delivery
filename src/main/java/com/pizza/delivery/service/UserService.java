@@ -1,8 +1,8 @@
 package com.pizza.delivery.service;
 
 import com.pizza.delivery.dto.RegistrationDto;
+import com.pizza.delivery.dto.UserDto;
 import com.pizza.delivery.model.UserEntity;
-import org.apache.catalina.User;
 
 public interface UserService {
     void saveUser(RegistrationDto registrationDto);

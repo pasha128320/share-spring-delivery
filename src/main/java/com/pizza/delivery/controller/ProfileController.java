@@ -2,14 +2,16 @@ package com.pizza.delivery.controller;
 
 
 import com.pizza.delivery.dto.AddressDto;
+import com.pizza.delivery.dto.UserDto;
+import com.pizza.delivery.model.UserEntity;
 import com.pizza.delivery.security.SecurityUtil;
 import com.pizza.delivery.service.impl.AddressServiceImpl;
 import com.pizza.delivery.service.impl.UserServiceImpl;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import static com.pizza.delivery.mappers.UsersMappers.*;
 
 import java.util.List;
 
@@ -24,7 +26,9 @@ public class ProfileController {
     @GetMapping("/profile")
     public String getProfilePage(Model model){
         String email = SecurityUtil.getSessionUser();
-
+        UserEntity user = userService.findUserByEmail(email);
+        UserDto dto = mapToUserProfileDto(user);
+        model.addAttribute("user", user);
         return "profile";
     }
 
@@ -36,4 +40,6 @@ public class ProfileController {
 
         return "profile-adresses";
     }
+
+
 }

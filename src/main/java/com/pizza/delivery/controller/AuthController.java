@@ -4,6 +4,8 @@ package com.pizza.delivery.controller;
 import com.pizza.delivery.dto.RegistrationDto;
 import com.pizza.delivery.model.UserEntity;
 import com.pizza.delivery.service.impl.UserServiceImpl;
+import jakarta.validation.Valid;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,8 +30,8 @@ public class AuthController {
 
     @GetMapping("/register")
     public String getRegisterForm(Model model){
-        RegistrationDto dto = new RegistrationDto();
-        model.addAttribute("user",dto);
+        UserEntity user = new UserEntity();
+        model.addAttribute("user",user);
         return "register";
     }
 

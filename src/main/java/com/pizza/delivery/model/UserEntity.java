@@ -1,19 +1,16 @@
 package com.pizza.delivery.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Setter
 @Getter
 public class UserEntity {
@@ -39,7 +36,7 @@ public class UserEntity {
             joinColumns = {@JoinColumn(name="email_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName = "id")}
     )
-    private List<Role> roles = new ArrayList<>();
+    private List<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Address> address;

@@ -2,6 +2,7 @@ package com.pizza.delivery.service.impl;
 
 
 import com.pizza.delivery.dto.RegistrationDto;
+import com.pizza.delivery.dto.UserDto;
 import com.pizza.delivery.model.Address;
 import com.pizza.delivery.model.Role;
 import com.pizza.delivery.model.UserEntity;
@@ -52,6 +53,7 @@ public class UserServiceImpl implements UserService {
     public UserEntity findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
 
     @Override
     public UserEntity findUserByPhoneNumber(String phoneNumber) {

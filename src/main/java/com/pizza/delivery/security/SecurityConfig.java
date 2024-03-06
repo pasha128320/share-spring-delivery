@@ -24,13 +24,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login","/register","/","/css/**","/js/**")
-                .permitAll()
-                .antMatchers("/profile/**","/bag/**")
-                .authenticated()
-                .and()
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/login","/register","/","/css/**","/js/**").anonymous()
+                        .requestMatchers("/profile/**","/bag/**").authenticated()
+                )
                 .formLogin(form -> form
                                 .loginPage("/login")
                                 .usernameParameter("email")

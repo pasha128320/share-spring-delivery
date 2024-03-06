@@ -3,19 +3,20 @@ package com.pizza.delivery.dto;
 
 import com.pizza.delivery.model.Address;
 import com.pizza.delivery.model.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@Builder
 public class RegistrationDto {
 
 
