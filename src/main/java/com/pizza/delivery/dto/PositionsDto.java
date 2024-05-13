@@ -15,6 +15,6 @@ public class PositionsDto {
     private String name;
     private String description;
     private String photoUrl;
-    private int price;
+    private double price;
 
 }

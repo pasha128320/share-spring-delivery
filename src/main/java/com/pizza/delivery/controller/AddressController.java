@@ -1,17 +1,21 @@
 package com.pizza.delivery.controller;
 
 
+import com.pizza.delivery.dto.AddressDto;
+import com.pizza.delivery.dto.UserDto;
 import com.pizza.delivery.model.Address;
-import com.pizza.delivery.repository.AddressRepository;
+import com.pizza.delivery.model.UserEntity;
+import com.pizza.delivery.security.SecurityUtil;
+import com.pizza.delivery.service.impl.AddressServiceImpl;
 import com.pizza.delivery.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import static com.pizza.delivery.mappers.UsersMappers.*;
 
 @Controller
 public class AddressController {
@@ -19,15 +23,28 @@ public class AddressController {
     @Autowired
     UserServiceImpl userService;
     @Autowired
-    AddressRepository addressRepository;
+    AddressServiceImpl addressService;
+
+    @GetMapping("/address")
+    public String getAddAddressPage(Model model){
+        Address address = new Address();
+
+        model.addAttribute("address",address);
+
+        return "address-add";
+    }
 
     @PostMapping("/address")
-    public void addAddress(@RequestBody Address address){
-        addressRepository.save(address);
+    public String saveAddress(@ModelAttribute("address")AddressDto dto, Model model){
+
+        String userEmail = SecurityUtil.getSessionUser();
+        UserEntity user = userService.findUserByEmail(userEmail);
+        addressService.saveAddress(dto, user);
+
+
+        return "redirect:/profile?address";
+
+
     }
 
-    @GetMapping("/address/get")
-    public List<Address> getAllAdress(){
-        return addressRepository.findAll();
-    }
 }

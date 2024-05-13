@@ -48,7 +48,6 @@ public class AuthController {
 
         if(result.hasErrors()){
             model.addAttribute("user",user);
-            for(var elem: result.getAllErrors()) System.out.println(elem);
             return "redirect:/register?error";
         }
 

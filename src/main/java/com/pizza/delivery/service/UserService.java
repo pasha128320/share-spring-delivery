@@ -10,4 +10,6 @@ public interface UserService {
     UserEntity findUserByEmail(String email);
 
     UserEntity findUserByPhoneNumber(String phoneNumber);
+
+    void updateUser(UserDto dto);
 }

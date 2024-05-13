@@ -22,10 +22,6 @@ public class RegistrationDto {
 
     private Long id;
 
-//    @Length(min = 8, max = 15)
-//    private String username;
-
-//    @Pattern(regexp = "\\+7\\d{10}")
     @NotEmpty
     private String phoneNumber;
 
@@ -33,7 +29,7 @@ public class RegistrationDto {
     @NotEmpty
     private String password;
 
-    @Email(message = "Введите корректно свой")
+    @Email(message = "Введите корректно свой адрес почты")
     @NotEmpty
     private String email;
 
@@ -47,7 +43,7 @@ public class RegistrationDto {
 
     private List<Role> roles = new ArrayList<>();
 
-    private List<Address> address;
+    private List<Address> address = new ArrayList<>();
 
 
 }

@@ -4,13 +4,13 @@ package com.pizza.delivery.dto;
 import com.pizza.delivery.model.Address;
 import com.pizza.delivery.model.Role;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Builder
 public class UserDto {
 
@@ -21,7 +21,6 @@ public class UserDto {
     private String firstName;
     private String lastName;
 
-    private List<Address> address;
 
     private List<Role> roles;
 }

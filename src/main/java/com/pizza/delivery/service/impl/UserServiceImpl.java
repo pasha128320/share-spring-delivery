@@ -9,10 +9,12 @@ import com.pizza.delivery.model.UserEntity;
 import com.pizza.delivery.repository.AddressRepository;
 import com.pizza.delivery.repository.RoleRepository;
 import com.pizza.delivery.repository.UserRepository;
+import com.pizza.delivery.security.SecurityUtil;
 import com.pizza.delivery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import static com.pizza.delivery.mappers.UsersMappers.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,9 +44,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         user.setFirstName(registrationDto.getFirstName());
         user.setLastName(registrationDto.getLastName());
-        List<Address> addressList = addressRepository.findAllByUserEmail(user.getEmail());
-        user.setAddress(addressList);
-        Role role = roleRepository.findByName("USER");
+        Role role = roleRepository.findByName("ROLE_USER");
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
@@ -58,6 +58,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findUserByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public void updateUser(UserDto dto) {
+        UserEntity user = userRepository.findByEmail(dto.getEmail());
+
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setPhoneNumber(dto.getPhoneNumber());
+
+        userRepository.save(user);
     }
 
 

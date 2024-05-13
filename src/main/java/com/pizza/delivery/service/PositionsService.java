@@ -9,4 +9,5 @@ public interface PositionsService {
 
     List<PositionsDto> findAllPositions();
     void savePositions(Positions positions);
+    PositionsDto findPositionById(Long id);
 }

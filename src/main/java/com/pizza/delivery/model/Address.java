@@ -26,6 +26,8 @@ public class Address {
     private int floor;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="user_email", referencedColumnName = "email")
+    @JoinColumn(name="user_id", referencedColumnName = "id")
     private UserEntity user;
+
+
 }
