@@ -21,7 +21,9 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
 
-
+<div th:if="${param.deleted}" class="alert alert-warning">
+    Позиция удалена из корзины!
+</div>
 
 <div class="album py-5 ">
 
@@ -49,31 +51,35 @@
                                 <p><strong>[[${elem.name}]]</strong></p>
                                 <p>[[${elem.description}]]</p>
 <!--                                <p>Size: M</p>-->
-                                <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init="" data-mdb-button-initialized="true" aria-label="Remove item" data-mdb-original-title="Remove item" data-mdb-tooltip-initialized="true" aria-describedby="tooltip886504">
+                                <a class="btn btn-primary btn-sm me-1 mb-2" th:href="@{/cart/{positionId}/delete(positionId=${elem.id})}">
                                     <i class="fas fa-trash"></i>
-                                </button>
+                                </a>
                                 <!-- Data -->
                             </div>
 
                             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                                 <!-- Quantity -->
                                 <div class="d-flex mb-4" style="max-width: 300px">
-                                    <button data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary px-3 me-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" data-mdb-button-initialized="true" style="" aria-pressed="false">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+<!--                                    <button data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary px-3 me-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" data-mdb-button-initialized="true" style="" aria-pressed="false">-->
+<!--                                        <i class="fas fa-minus"></i>-->
+<!--                                    </button>-->
 
-                                    <div data-mdb-input-init="" class="form-outline" data-mdb-input-initialized="true">
-                                        <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control active">
-                                        <label class="form-label" for="form1" style="margin-left: 0px;">Количество</label>
-                                        <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 56px;"></div><div class="form-notch-trailing"></div></div></div>
+<!--                                    <div data-mdb-input-init="" class="form-outline" data-mdb-input-initialized="true">-->
+<!--                                        <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control active">-->
+<!--                                        <label class="form-label" for="form1" style="margin-left: 0px;">Количество</label>-->
+<!--                                        <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 56px;"></div><div class="form-notch-trailing"></div></div></div>-->
 
-                                    <button data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary px-3 ms-2 ripple-surface active" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" data-mdb-button-initialized="true" style="min-width: 42.5px;" aria-pressed="true">
-                                        <i class="fas fa-plus"></i>
-                                        <div class="ripple-wave active" style="left: -53.6004px; top: -49.6004px; height: 107.201px; width: 107.201px; transition-delay: 0s, 250ms; transition-duration: 500ms, 250ms;"></div><div class="ripple-wave active" style="left: -45.8262px; top: -40.8262px; height: 97.6524px; width: 97.6524px; transition-delay: 0s, 250ms; transition-duration: 500ms, 250ms;"></div></button>
+<!--                                    <button data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-primary px-3 ms-2 ripple-surface active" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" data-mdb-button-initialized="true" style="min-width: 42.5px;" aria-pressed="true">-->
+<!--                                        <i class="fas fa-plus"></i>-->
+<!--                                        <div class="ripple-wave active" style="left: -53.6004px; top: -49.6004px; height: 107.201px; width: 107.201px; transition-delay: 0s, 250ms; transition-duration: 500ms, 250ms;"></div><div class="ripple-wave active" style="left: -45.8262px; top: -40.8262px; height: 97.6524px; width: 97.6524px; transition-delay: 0s, 250ms; transition-duration: 500ms, 250ms;"></div></button>-->
+
                                 </div>
                                 <!-- Quantity -->
 
                                 <!-- Price -->
+                                <p class="text-start text-md-center">
+                                    <strong>Цена</strong>
+                                </p>
                                 <p class="text-start text-md-center">
                                     <strong>[[${elem.price}]] ₽</strong>
                                 </p>
@@ -90,12 +96,13 @@
 
             </div>
             <div class="col-md-4">
+
                 <div class="card mb-4">
+<!--                    <form role="form" th:method="post" th:action="@{/addToCart}" th:object="${elem}>-->
                     <div class="card-header py-3">
                         <h5 class="mb-0">Итого [[${cart.summary}]]₽</h5>
                     </div>
 
-                    <form class="card-body">
 
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -112,28 +119,43 @@
                         </ul>
 
 
-                        <div class="card-body p-1 mb-1">
+<!--                        <div class="card-body p-1 mb-1">-->
+                            <form class="card-body p-1 mb-1" role="form" th:method="post" th:action="@{/order}" th:object="${address}">
+
+<!--                                <input name="positionsList" hidden="hidden" th:value="${positions}">-->
+<!--                                <input name="summary" hidden="hidden" th:value="${cart.summary}">-->
+<!--                                <input name="id" hidden="hidden" th:value="*{address.id}">-->
+
+
+
 
                             <p>Выберите адрес для доставки</p>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" id="address" name="address">
 
-                                <div th:each="address : ${addresses}">
-                                    <option name="address" th:value=${address}>[[${address.name}]]</option>
-                                </div>
+<!--                                <div th:each="address : ${addresses}">-->
+                                    <option th:each="address : ${addresses}" th:value="${address.id}" th:text="${address.name}"></option>
+<!--                                </div>-->
                             </select>
+
                             <a th:href="@{/address}">Добавить еще один адрес для доставки</a>
-                        </div>
+
+                            <button class="btn btn-primary btn-lg btn-block" type="submit" th:action="@{/order}">
+                                Перейти к оплате
+                            </button>
+
+                            </form>
+
+<!--                        </div>-->
 
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" data-mdb-button-initialized="true">
-                            Перейти к оплате
-                        </button>
                     </div>
-                    </form>
+<!--                </form>-->
 
                 </div>
+
             </div>
-        </div>
+
+    </div>
 
     </div>
 </div>

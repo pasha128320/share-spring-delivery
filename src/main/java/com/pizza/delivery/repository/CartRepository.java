@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartRepository extends KeyValueRepository<Cart, String> {
     Cart findByEmail (String email);
+
 }

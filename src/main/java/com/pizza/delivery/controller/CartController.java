@@ -4,15 +4,15 @@ package com.pizza.delivery.controller;
 import com.pizza.delivery.dto.AddressDto;
 import com.pizza.delivery.dto.PositionsDto;
 import com.pizza.delivery.dto.UserDto;
-import com.pizza.delivery.model.Cart;
-import com.pizza.delivery.model.Positions;
-import com.pizza.delivery.model.UserEntity;
+import com.pizza.delivery.model.*;
 import com.pizza.delivery.repository.CartRepository;
+import com.pizza.delivery.repository.OrderRepository;
 import com.pizza.delivery.security.SecurityUtil;
 import com.pizza.delivery.service.CartService;
 import com.pizza.delivery.service.UserService;
 import com.pizza.delivery.service.impl.AddressServiceImpl;
 import com.pizza.delivery.service.impl.CartServiceImpl;
+import static com.pizza.delivery.mappers.AddressMappers.*;
 import com.pizza.delivery.service.impl.PositionsServiceImpl;
 import lombok.Getter;
 import org.aspectj.weaver.Position;
@@ -37,6 +37,8 @@ public class CartController {
     PositionsServiceImpl positionsService;
     @Autowired
     AddressServiceImpl addressService;
+    @Autowired
+    OrderRepository orderRepository;
 
 
     @GetMapping("/cart")
@@ -58,7 +60,7 @@ public class CartController {
     }
 
     @PostMapping("/addToCart")
-    public String AddPositionToCart(@ModelAttribute(name="elem") Positions position){
+    public String addPositionToCart(@ModelAttribute(name="elem") Positions position){
         String email = SecurityUtil.getSessionUser();
         Cart cart = cartRepository.findByEmail(email);
 
@@ -72,6 +74,51 @@ public class CartController {
             cartRepository.save(cart);
         }
         return "redirect:/?ordered";
+    }
+
+    @GetMapping("/cart/{positionId}/delete")
+    public String deletePositionFromCart(@PathVariable(name="positionId")Long positionId){
+        String email = SecurityUtil.getSessionUser();
+        Cart cart = cartService.findCartByUserEmail(email);
+        List<Positions> positionsList = cart.getPositionsList();
+        double cartSummary = cart.getSummary();
+
+        for(var elem : positionsList){
+            if(elem.getId().equals(positionId)){
+                cartSummary -= elem.getPrice();
+                positionsList.remove(elem);
+                break;
+            }
+        }
+
+        System.out.println(positionsList.size());
+        cart.setSummary(cartSummary);
+        cart.setPositionsList(positionsList);
+        cartRepository.save(cart);
+
+        return"redirect:/cart?deleted";
+    }
+
+
+    @PostMapping("/order")
+    public String createNewOrder(@ModelAttribute(name="address")Long id){
+        String email = SecurityUtil.getSessionUser();
+        UserEntity user = userService.findUserByEmail(email);
+        Address address = addressService.findAddressById(id);
+        Cart cart = cartService.findCartByUserEmail(email);
+
+        Order order = new Order();
+        order.setSummary(cart.getSummary());
+        order.setPositionsList(cart.getPositionsList());
+        order.setUser(user);
+        order.setAddress(address);
+
+        orderRepository.save(order);
+        cartRepository.deleteById(cart.getEmail());
+
+
+
+        return "redirect:/?successOrder";
     }
 
 }

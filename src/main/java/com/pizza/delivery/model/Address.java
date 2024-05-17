@@ -6,12 +6,23 @@ import lombok.*;
 
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Setter
 @Getter
 @Entity(name="address")
 public class Address {
+
+    public Address(Long id, String name, String city, String street, String commentToDelivery, int houseNumber, int apartNumber, int floor, UserEntity user) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.street = street;
+        this.commentToDelivery = commentToDelivery;
+        this.houseNumber = houseNumber;
+        this.apartNumber = apartNumber;
+        this.floor = floor;
+        this.user = user;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

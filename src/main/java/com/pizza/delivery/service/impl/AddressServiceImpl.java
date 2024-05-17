@@ -38,5 +38,11 @@ public class AddressServiceImpl implements AddressService {
         addressRepository.save(mapToAddress(dto));
     }
 
+    @Override
+    public Address findAddressById(Long id) {
+        Address address = addressRepository.findById(id).get();
+        return address;
+    }
+
 
 }
