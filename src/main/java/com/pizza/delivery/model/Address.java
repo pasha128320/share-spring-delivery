@@ -36,7 +36,7 @@ public class Address {
     private int apartNumber;
     private int floor;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name="user_id", referencedColumnName = "id")
     private UserEntity user;
 

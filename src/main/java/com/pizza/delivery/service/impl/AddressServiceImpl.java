@@ -44,5 +44,18 @@ public class AddressServiceImpl implements AddressService {
         return address;
     }
 
+    @Override
+    public void updateAddress(AddressDto dto) {
+        Address address = addressRepository.findById(dto.getId()).get();
+        address.setCity(dto.getCity());
+        address.setFloor(dto.getFloor());
+        address.setName(dto.getName());
+        address.setCommentToDelivery(dto.getCommentToDelivery());
+        address.setApartNumber(dto.getApartNumber());
+        address.setHouseNumber(dto.getHouseNumber());
+        address.setStreet(dto.getStreet());
+        addressRepository.save(address);
+    }
+
 
 }

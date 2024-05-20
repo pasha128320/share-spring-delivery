@@ -4,7 +4,9 @@ package com.pizza.delivery.controller;
 import com.pizza.delivery.dto.AddressDto;
 import com.pizza.delivery.dto.UserDto;
 import com.pizza.delivery.model.Address;
+import com.pizza.delivery.model.Order;
 import com.pizza.delivery.model.UserEntity;
+import com.pizza.delivery.repository.OrderRepository;
 import com.pizza.delivery.security.SecurityUtil;
 import com.pizza.delivery.service.impl.AddressServiceImpl;
 import com.pizza.delivery.service.impl.UserServiceImpl;
@@ -27,6 +29,8 @@ public class ProfileController {
     AddressServiceImpl addressService;
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    OrderRepository orderRepository;
 
     @GetMapping("/profile")
     public String getProfilePage(Model model){
@@ -46,7 +50,11 @@ public class ProfileController {
     @GetMapping("/profile/history")
     public String getProfilePageWithAdressesList(Model model){
         String userEmail = SecurityUtil.getSessionUser();
+        UserEntity user = userService.findUserByEmail(userEmail);
 
+        List<Order> orderList = orderRepository.findAllByUserId(user.getId());
+
+        model.addAttribute("orders", orderList);
 
         return "profile-history";
     }
@@ -66,6 +74,7 @@ public class ProfileController {
         userService.updateUser(user);
         return "redirect:/profile?success";
     }
+
 
 
 

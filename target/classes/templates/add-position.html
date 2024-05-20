@@ -6,29 +6,30 @@
 </head>
 <body>
 
-<form role="form" method="post" th:action="@{/add}" th:object="${position}">
+<form role="form" method="post" th:action="@{/manager/add}" th:object="${position}">
+    <h3>Добавить новую позицию в меню</h3>
     <div class="form-group">
         <label for="name">Название</label>
-        <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" th:field="*{name}">
+        <input type="name" class="form-control" id="name" placeholder="Название позиции" name="name" th:field="*{name}">
     </div>
     <div class="form-group">
-        <label for="description">Password</label>
-        <input type="description" class="form-control" id="description" placeholder="description" name="description" th:field="*{description}">
-    </div>
-
-    <div class="form-group">
-        <label for="photoUrl">photoUrl</label>
-        <input type="photoUrl" class="form-control" id="photoUrl" placeholder="photoUrl" name="photoUrl" th:field="*{photoUrl}">
+        <label for="description">Описание позиции</label>
+        <input type="description" class="form-control" id="description" placeholder="Описание позиции" name="description" th:field="*{description}">
     </div>
 
     <div class="form-group">
-        <label for="price">price</label>
-        <input type="price" class="form-control" id="price" placeholder="price"name="price"th:field="*{price}">
+        <label for="photoUrl">Ссылка на фото</label>
+        <input type="photoUrl" class="form-control" id="photoUrl" placeholder="Ссылка на фото" name="photoUrl" th:field="*{photoUrl}">
+    </div>
+
+    <div class="form-group">
+        <label for="price">Цена позиции</label>
+        <input type="price" class="form-control" id="price" placeholder="Цена позиции"name="price"th:field="*{price}">
     </div>
 
 
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Добавить позицию</button>
 </form>
 
 </body>

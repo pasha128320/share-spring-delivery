@@ -14,4 +14,6 @@ public interface AddressService {
     void saveAddress(AddressDto dto, UserEntity user);
     Address findAddressById(Long id);
 
+    void updateAddress(AddressDto dto);
+
 }

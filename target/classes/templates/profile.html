@@ -115,7 +115,7 @@
                                 д. [[${elem.houseNumber}]]
                                 этаж [[${elem.floor}]]
                                 кв. [[${elem.apartNumber}]]</p>
-                            <a href="#" class="icon-link">
+                            <a th:href="@{/address/update/{id}(id=${elem.id})}" class="icon-link">
                                 Изменить данные адреса
                                 <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"></use></svg>
                             </a>

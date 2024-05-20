@@ -33,11 +33,11 @@
 <form method="post" class="form-signin w-100 mb-3 d-flex justify-content-center pt-5 " th:action="@{/address}" th:object="${address}">
 
     <div class="w-25 shadow-lg p-3 mb-5 bg-body rounded">
-        <h1 class="h3 mb-3 fw-normal">Пожалуйста, зарегистрируйтесь</h1>
+        <h1 class="h3 mb-3 fw-normal">Добавьте новый адрес</h1>
 
         <div class="row g-3 ">
             <div class="col-sm-6">
-                <label for="name" class="form-label">Имя *</label>
+                <label for="name" class="form-label">Название адреса *</label>
                 <input type="text" class="form-control" id="name" th:field="*{name}">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
                     firstName Error
@@ -45,10 +45,10 @@
             </div>
 
             <div class="col-sm-6">
-                <label for="city" class="form-label">город *</label>
+                <label for="city" class="form-label">Город *</label>
                 <input type="text" class="form-control" id="city" th:field="*{city}">
                 <p class="invalid-feedback" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
-                    Фамилия должна состоять только из букв кириллицы
+                    Город должен состоять только из букв кириллицы
                 </p>
             </div>
 
@@ -56,42 +56,43 @@
                 <label for="street" class="form-label">улица *</label>
                 <input type="text" class="form-control" id="street" th:field="*{street}">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">
-                    phoneNumber Error
+                    Название улицы должно состоять только из букв кириллицы
                 </div>
             </div>
 
             <div class="col-12">
-                <label for="houseNumber" class="form-label">номер дома *</label>
+                <label for="houseNumber" class="form-label">Номер дома *</label>
                 <input type="text" class="form-control" id="houseNumber" th:field="*{houseNumber}">
-                <p th:if="${#fields.hasErrors('houseNumber')}" class="text-danger"></p>
+                <p th:if="${#fields.hasErrors('houseNumber')}" class="text-danger">
+                    Номер дома должен состоять только из цифр
+                </p>
 
             </div>
 
             <div class="col-12">
-                <label for="apartNumber" class="form-label">номер квартиры *</label>
+                <label for="apartNumber" class="form-label">Номер квартиры *</label>
                 <input type="text" class="form-control" id="apartNumber" th:field="*{apartNumber}">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('apartNumber')}" th:errors="*{apartNumber}">
-                    password Error
+                    Номер квартиры должен состоять только из цифр
                 </div>
             </div>
 
             <div class="col-12">
-                <label for="apartNumber" class="form-label"> коммент к доставке*</label>
+                <label for="apartNumber" class="form-label">Комментарий к доставке</label>
                 <input type="text" class="form-control" id="commentToDelivery" th:field="*{commentToDelivery}">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('commentToDelivery')}" th:errors="*{commentToDelivery}">
-                    password Error
                 </div>
             </div>
 
             <div class="col-12">
-                <label for="apartNumber" class="form-label"> этаж*</label>
+                <label for="apartNumber" class="form-label">Этаж</label>
                 <input type="text" class="form-control" id="floor" th:field="*{floor}">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}">
                     password Error
                 </div>
             </div>
 
-            <input type="hidden" id="user" th:field="*{user}" th:value="*{user}">
+<!--            <input type="hidden" id="user" th:field="*{user}" th:value="*{user}">-->
 
 
             <hr class="my-4">

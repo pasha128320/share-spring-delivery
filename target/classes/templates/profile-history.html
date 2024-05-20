@@ -30,13 +30,47 @@
 
             <div class="container shadow-lg p-3 mb-5 bg-body rounded">
 
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <a class="btn btn-outline-primary" th:href="@{/profile/history}">История заказов</a>
-            <a class="btn btn-outline-primary" th:href="@{/profile}">Профиль</a>
-        </div>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <a class="btn btn-outline-primary" th:href="@{/profile/history}">История заказов</a>
+                <a class="btn btn-outline-primary" th:href="@{/profile}">Профиль</a>
+
+            </div>
+
+                <hr class="my-4">
+
+                <h3 class="h3 fw-normal">Ваши заказы</h3>
+
+                <div class="card-body p-2" th:each="order : ${orders}">
+                    <!-- Single item -->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                            <p><strong>Заказ №[[${order.id}]]</strong></p>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                            <!-- Data -->
+                                <p><strong th:each="position : ${order.positionsList}">[[${position.name}]] </strong></p>
+                            <p> Отправлен по адресу ул. [[${order.address.street}]], д. [[${order.address.houseNumber}]], эт. [[${order.address.floor}]], кв. [[${order.address.apartNumber}]]</p>
+                            <!-- Data -->
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+
+                            <p class="text-start text-md-center">
+                                <strong>Итого</strong>
+                            </p>
+                            <p class="text-start text-md-center">
+                                <strong>[[${order.summary}]] ₽</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                </div>
 
 
-    </div>
+
+
+            </div>
     </div>
 
 </body>

@@ -91,7 +91,6 @@ public class CartController {
             }
         }
 
-        System.out.println(positionsList.size());
         cart.setSummary(cartSummary);
         cart.setPositionsList(positionsList);
         cartRepository.save(cart);
